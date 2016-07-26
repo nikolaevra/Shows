@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     ListView listView;
     static Set<String> favorites = new HashSet<>();
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView1);
 
         SharedPreferences settings = getSharedPreferences(
-                "com.example.ruslan.showtracker", Context.MODE_PRIVATE);
+                "com.example.ruslan.seriesstuff", Context.MODE_PRIVATE);
         favorites = settings.getStringSet("favorites", new HashSet<String>());
         favoritesIDs = settings.getStringSet("favoritesIDs", new HashSet<String>());
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         SharedPreferences settings = getSharedPreferences(
-                "com.example.ruslan.showtracker", Context.MODE_PRIVATE);
+                "com.example.ruslan.seriesstuff", Context.MODE_PRIVATE);
         settings.edit().putStringSet("favorites", favorites).apply();
         settings.edit().putStringSet("favoritesIDs", favoritesIDs).apply();
         super.onStop();
