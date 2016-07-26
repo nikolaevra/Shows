@@ -165,7 +165,7 @@ public class ShowPopup extends AppCompatActivity {
                     MainActivity.favorites.add(extracted.get("name"));
                     MainActivity.favoritesIDs.add(show_id);
                     save();
-                    MainActivity.adapter.notifyDataSetChanged();
+                    MainActivity.mainAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(),
                             String.format("Added %s to your collection",
                                     extracted.get("name")),

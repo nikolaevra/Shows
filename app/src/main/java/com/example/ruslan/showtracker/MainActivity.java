@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     static Set<String> favorites = new HashSet<>();
     static Set<String> favoritesIDs = new HashSet<>();
-    static ArrayAdapter<String> adapter;
+    static ArrayAdapter<String> mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +36,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> valuesForAdapter = new ArrayList<>();
         valuesForAdapter.addAll(favorites);
 
-        if (valuesForAdapter.size() == 0) {
-            valuesForAdapter.add("Feel free to add TV shows, just search for it");
-        }
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+        mainAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 android.R.id.text1, valuesForAdapter);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        listView.setAdapter(mainAdapter);
+        mainAdapter.notifyDataSetChanged();
     }
 
     @Override
