@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     static Set<String> favorites = new HashSet<>();
     static Set<String> favoritesIDs = new HashSet<>();
     static ArrayAdapter<String> mainAdapter;
+    ArrayList<String> valuesForAdapter = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         favorites = settings.getStringSet("favorites", new HashSet<String>());
         favoritesIDs = settings.getStringSet("favoritesIDs", new HashSet<String>());
 
-        ArrayList<String> valuesForAdapter = new ArrayList<>();
+        valuesForAdapter.clear();
         valuesForAdapter.addAll(favorites);
 
         mainAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
@@ -43,12 +44,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         SharedPreferences settings = getSharedPreferences(
                 "com.example.ruslan.showtracker", Context.MODE_PRIVATE);
         settings.edit().putStringSet("favorites", favorites).apply();
         settings.edit().putStringSet("favoritesIDs", favoritesIDs).apply();
         super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        valuesForAdapter.clear();
+        valuesForAdapter.addAll(favorites);
+
+        mainAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                android.R.id.text1, valuesForAdapter);
+        listView.setAdapter(mainAdapter);
+        mainAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 
     @Override

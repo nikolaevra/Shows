@@ -2,4 +2,10 @@
     <string name="app_name">Show Tracker</string>
     <string name="Add">Add</string>
     <string name="image_poster">Image Poster</string>
+    <string name="show_description">Show Description</string>
+    <string name="first_air_date">First air date:</string>
+    <string name="genres">Genres:</string>
+    <string name="run_time">Run Time:</string>
+    <string name="last_air_date">Last air date:</string>
+    <string name="networks">Networks:</string>
 </resources>

@@ -29,7 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> adapter;
     ArrayList<String> names = new ArrayList<>();
-    static ArrayList<String> ids = new ArrayList<>();
+    ArrayList<String> ids = new ArrayList<>();
     final String search_url = "http://api.themoviedb.org/3/search/tv?api_key=ed9b90f4d390ef940882968ec0d8d677&query=%s";
 
     @Override
@@ -103,6 +103,7 @@ public class SearchActivity extends AppCompatActivity {
         finish();
         super.onPause();
     }
+
     public class DownloadTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
