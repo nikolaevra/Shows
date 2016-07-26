@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Show Tracker</string>
+    <string name="Add">Add</string>
+    <string name="image_poster">Image Poster</string>
 </resources>
