@@ -211,8 +211,57 @@ public class ShowPopup extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        description.setText(R.string.show_description);
+        title.setText("");
+        ratingBar.setRating(0);
+        firstDateView.setText(R.string.first_air_date);
+        genresView.setText(R.string.genres);
+        networksView.setText(R.string.networks);
+        lastDateView.setText(R.string.last_air_date);
+        runTimeView.setText(R.string.run_time);
+        posterView.setBackgroundResource(R.drawable.nopicture);
+
         finish();
         super.onPause();
     }
 
+    @Override
+    protected void onResume() {
+        DownloadTask task = new DownloadTask();
+        String result = null;
+        try {
+            result = task.execute(String.format(show_id_url, show_id)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        Parser helpers = new Parser();
+        helpers.parse_values(result);
+        extracted = helpers.get_everything();
+
+        description.setText(extracted.get("description"));
+        description.setMovementMethod(new ScrollingMovementMethod());
+        title.setText(extracted.get("name"));
+        ratingBar.setRating(Float.parseFloat(extracted.get("rating")) / 2);
+        firstDateView.setText(String.format("First air date: %s",
+                extracted.get("air_begin_date")));
+        genresView.setText(String.format("Genres: %s", extracted.get("genres")));
+        networksView.setText(String.format("Networks: %s", extracted.get("networks")));
+        lastDateView.setText(String.format("Last air date: %s", extracted.get("air_last_date")));
+        runTimeView.setText(String.format("Run Time: %s mins", extracted.get("run_time")));
+
+        ImageDownloader imageTask = new ImageDownloader();
+        if (extracted.get("poster") != null) {
+            try {
+                imageTask.execute(String.format(poster_url, extracted.get("poster")));
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        } else {
+            posterView.setBackgroundResource(R.drawable.nopicture);
+        }
+        super.onResume();
+    }
 }
